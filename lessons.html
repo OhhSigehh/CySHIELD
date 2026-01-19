@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CyberShield | Lessons</title>
+  <link rel="shortcut icon" type="x-icon" href="logo.jpg" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #0d1117;
+      color: #c9d1d9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Mobile Menu */
+    .nav-links {
+      display: flex;
+    }
+
+    .close-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #00ff99;
+      cursor: pointer;
+      align-self: flex-end;
+    }
+  
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #010409;
+      border-bottom: 1px solid #30363d;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #1f6feb;
+      text-shadow: 0 0 10px #0a58cb;
+    }
+
+    /* Hamburger menu button */
+    .menu-toggle {
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #c9d1d9;
+      background: none;
+      border: none;
+      display: none;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav a, nav button {
+      text-decoration: none;
+      color: #c9d1d9;
+      font-weight: 500;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    nav a:hover, nav button:hover {
+      color: #1f6feb;
+      text-shadow: 0 0 10px #0a58cb;
+    }
+
+    #logoutBtn {
+      font-family: 'Orbitron', serif;
+      background: #1f6feb;
+      border: 1px solid #1f6feb;
+      max-width: 50%;
+      padding: 0.5rem 1rem;
+      border-radius: 0.6rem;
+      color: #0a0a0a;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    #logoutBtn:hover {
+      border: solid #0a58ca;
+      color: #fff;
+      box-shadow: 0 0 8px #0a58cb;
+    }
+
+    .close-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #c9d1d9;
+      cursor: pointer;
+      align-self: flex-end;
+    }
+  
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        background: #161b22;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 1.2rem;
+        gap: 1rem;
+        transition: right 0.3s ease;
+        border-left: 1px solid #30363d;
+        border-bottom: 1px solid #30363d;
+        width: 220px;
+        height: auto;
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .close-btn {
+        display: block;
+        margin-left: auto;
+        margin-bottom: 0.5rem;
+      }
+
+      .nav-links a, .nav-links button {
+        width: 100%;
+        text-align: left;
+      }
+    }
+
+    /* Lessons */
+    .lessons-container {
+      flex: 1;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .lessons-container h1{
+      font-family: 'Orbitron', sans-serif;
+      color: #1f6feb;  
+      margin-bottom: 1rem;
+      text-shadow: 0 0 6px #0a58cb;
+    }
+  
+    .lessons-container h2{
+      color: c9d1d9;
+    }
+  
+    /* XP bar */
+    #xp-bar {
+      width: 80%;
+      max-width: 600px;
+      margin: 1rem auto 2rem auto;
+      height: 20px;
+      background: #161b22;
+      border: 1px solid #010409;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    #xp-fill {
+      width: 0%;
+      height: 100%;
+      background: #0a58ca;
+      transition: width 0.5s ease;
+    }
+
+    /* Lesson Cards */
+    .lesson-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .lesson-card {
+      background: #111;
+      border: 1px solid #0a58ca;
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 280px;
+      text-align: center;
+      transition: 0.3s;
+    }
+  
+    .lesson-card.locked {
+      border: 1px solid #30363d;
+      opacity: 0.4;
+      border-color: #444;
+    }
+
+    .lesson-btn {
+      font-family: 'Orbitron', serif;
+      background: #1f6feb;
+      border: 1px solid #1f6feb;
+      padding: 0.7rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 1rem;
+      transition: transform 0.2s ease, border 0.2s ease;
+    }
+
+    .lesson-btn:hover:enabled {
+      border: solid #0a58ca;
+      color: #fff;
+      box-shadow: 0 0 8px #0a58cb;
+      transform: translateY(-3px);
+    }
+
+    .lesson-btn:disabled {
+      background: #333;
+      cursor: not-allowed;
+      color: #888;
+    }
+
+    /*Final Test*/
+    .finaltest{
+      display:none; 
+      margin: 1rem auto; 
+      padding: 0.8rem 1.5rem; 
+      background:#0d1117; 
+      border:none;
+      border-radius:6px;
+      font-weight:bold; 
+      cursor:pointer;
+    }
+
+    /* Popup Modal */
+    .popup-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+  
+    .popup-content {
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 350px;
+      color: #c9d1d9;
+      box-shadow: 0 0 8px #0a58cb;
+    }
+  
+    .popup-content button {
+      margin-top: 1rem;
+      padding: 0.5rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #closePopup,
+    #confirmNo,
+    #logoutNo {
+      font-family: 'Orbitron', sans-serif;
+      background: #1f6feb;
+      color: #fff;
+    }
+
+    #confirmYes,
+    #logoutYes {
+      font-family: 'Orbitron', sans-serif;
+      background: #da3633;
+      color: #fff;
+    }
+   
+    .reset {
+      font-family: 'Orbitron', sans-serif;
+      display: block; 
+      margin: 1rem auto; 
+      padding: 0.7rem 1.2rem; 
+      background: #da3633; 
+      border: none;
+      border-radius: 6px; 
+      font-weight: 600; 
+      cursor: pointer;
+    }
+    
+    .reset:hover{
+      border: #da3630;
+      color: #fff;
+      box-shadow: 0 0 8px #da3630;
+      transform: scale(1.05);
+    }
+  
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      border-top: 1px solid #30363d;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">CyberShield</div>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    <nav class="nav-links" id="navLinks">
+      <button class="close-btn" id="closeBtn">✖</button>
+      <a href="home.html">Home</a>
+      <a href="lessons.html">Lessons</a>
+      <a href="contact.html">Contact Us</a>
+      <button id="logoutBtn">Logout</button>
+    </nav>
+  </header>
+
+  <!-- Lessons -->
+  <main class="lessons-container">
+    <h1>Cyber Lessons</h1>
+    <div id="xp-bar"><div id="xp-fill"></div></div>
+    <p id="xp-text">XP: 0 / 700</p>
+
+    <!-- Final Test button (hidden at first) -->
+    <button id="finalTestBtn" class="finaltest">
+      Take Final Test
+    </button>
+    
+    <!-- Reset Progress button -->
+    <button id="resetProgressBtn" class="reset">
+      Reset Progress
+    </button>
+    
+    <!-- EASY LEVEL / INTRO -->
+    <h1>
+      Easy Level - Starters
+    </h1>
+    <div class="lesson-cards">
+      <!-- Lesson 1 -->
+      <div class="lesson-card">
+        <h2>Lesson 1: Introduction to Cybersecurity</h2>
+        <button class="lesson-btn" data-lesson="lesson1" onclick="window.location.href='lesson1.html'">Start Lesson</button>
+      </div>
+      
+      <!-- Lesson 2 -->
+      <div class="lesson-card locked">
+        <h2>Lesson 2: Types of Cyber Threats</h2>
+        <button class="lesson-btn" data-lesson="lesson2" onclick="window.location.href='lesson2.html'" disabled>Locked</button>
+      </div>
+      
+      <!-- Lesson 3 -->
+      <div class="lesson-card locked">
+        <h2>Lesson 3: </h2>
+        <button class="lesson-btn" data-lesson="lesson3" onclick="window.location.href='#'" disabled>Locked</button>
+      </div>
+      
+      <!-- Lesson 4 -->
+      <div class="lesson-card locked">
+        <h2>Lesson 4: </h2>
+        <button class="lesson-btn" data-lesson="lesson4" onclick="window.location.href='#'" disabled>Locked</button>
+      </div>
+      
+      <!-- Lesson 5 -->
+      <div class="lesson-card locked">
+        <h2>Lesson 5: </h2>
+        <p></p>
+        <button class="lesson-btn" data-lesson="lesson5" onclick="window.location.href='#'" disabled>Locked</button>
+      </div>
+    </div>
+    
+    <!-- MEDIUM LEVEL -->
+    <h1>
+      Medium Level - Intermediate
+    </h1>
+    <div class="lesson-cards">
+      <!-- Lesson 1 -->
+      <div class="lesson-card locked">
+        <h2>Lesson 1: </h2>
+        <button class="lesson-btn" data-lesson="lesson6" onclick="window.location.href='#'" disabled>Locked</button>
+      </div>
+      
+      <!-- Lesson 2 -->
+      <div class="lesson-card locked">
+        <h2>Lesson 2: </h2>
+        <button class="lesson-btn" data-lesson="lesson7" onclick="window.location.href='#'" disabled>Locked</button>
+      </div>
+      
+      <!-- Lesson 3 -->
+      <div class="lesson-card locked">
+        <h2>Lesson 3: </h2>
+        <button class="lesson-btn" data-lesson="lesson8" onclick="window.location.href='#'" disabled>Locked</button>
+      </div>
+      
+      <!-- Lesson 4 -->
+      <div class="lesson-card locked">
+        <h2>Lesson 4: </h2>
+        <button class="lesson-btn" data-lesson="lesson9" onclick="window.location.href='#'" disabled>Locked</button>
+      </div>
+      
+      <!-- Lesson 5 -->
+      <div class="lesson-card locked">
+        <h2>Lesson 5: </h2>
+        <p></p>
+        <button class="lesson-btn" data-lesson="lesson10" onclick="window.location.href='#'" disabled>Locked</button>
+      </div>
+    
+    <!-- HARD LEVEL -->
+    <h1>
+      Hard Level - Advance
+    </h1>
+    <div class="lesson-cards">
+      <!-- Lesson 1 -->
+      <div class="lesson-card locked">
+        <h2>Lesson 1: </h2>
+        <button class="lesson-btn" data-lesson="lesson11" onclick="window.location.href='#'" disabled>Locked</button>
+      </div>
+      
+      <!-- Lesson 2 -->
+      <div class="lesson-card locked">
+        <h2>Lesson 2: </h2>
+        <button class="lesson-btn" data-lesson="lesson12" onclick="window.location.href='#'" disabled>Locked</button>
+      </div>
+      
+      <!-- Lesson 3 -->
+      <div class="lesson-card locked">
+        <h2>Lesson 3: </h2>
+        <button class="lesson-btn" data-lesson="lesson13" onclick="window.location.href='#'" disabled>Locked</button>
+      </div>
+      
+      <!-- Lesson 4 -->
+      <div class="lesson-card locked">
+        <h2>Lesson 4: </h2>
+        <button class="lesson-btn" data-lesson="lesson14" onclick="window.location.href='#'" disabled>Locked</button>
+      </div>
+      
+      <!-- Lesson 5 -->
+      <div class="lesson-card locked">
+        <h2>Lesson 5: </h2>
+        <p></p>
+        <button class="lesson-btn" data-lesson="lesson15" onclick="window.location.href='#'" disabled>Locked</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Confirmation Popup for Reset -->
+  <div id="confirmPopup" class="popup-modal">
+    <div class="popup-content">
+      <p id="confirmMessage">Are you sure you want to reset all progress? This cannot be undone.</p>
+      <div style="margin-top:1rem; display:flex; justify-content:center; gap:1rem;">
+        <button id="confirmYes">Yes</button>
+        <button id="confirmNo">No</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Confirmation Popup -->
+  <div id="logoutPopup" class="popup-modal">
+    <div class="popup-content">
+      <p id="logoutMessage">Are you sure you want to logout?</p>
+      <div style="margin-top:1rem; display:flex; justify-content:center; gap:1rem;">
+        <button id="logoutYes">Yes</button>
+        <button id="logoutNo">No</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Popup Modal For Reset and Lesson Return -->
+  <div id="popupModal" class="popup-modal">
+    <div class="popup-content">
+      <p id="popupMessage"></p>
+      <button id="closePopup">OK</button>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 CyberShield | Research Project - Antipolo City Senior High School
+  </footer>
+
+  <!-- Firebase Logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDcy8AV_IMrphBOihSwT461C2_CmhHAZi4",
+      authDomain: "cshield-41518.firebaseapp.com",
+      projectId: "cshield-41518",
+      storageBucket: "cshield-41518.firebasestorage.app",
+      messagingSenderId: "1055312271929",
+      appId: "1:1055312271929:web:c3415a674782ade5550be8"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Logout Popup
+    const logoutBtn = document.getElementById("logoutBtn");
+    const logoutPopup = document.getElementById("logoutPopup");
+    const logoutYes = document.getElementById("logoutYes");
+    const logoutNo = document.getElementById("logoutNo");
+
+    logoutBtn.addEventListener("click", () => {
+      logoutPopup.style.display = "flex"; // show popup
+    });
+
+    logoutYes.addEventListener("click", async () => {
+      await signOut(auth);
+      localStorage.clear();
+      window.location.href = "index.html";
+    });
+
+    logoutNo.addEventListener("click", () => {
+      logoutPopup.style.display = "none"; // close popup
+    });
+
+    // Load progress
+    async function loadProgress() {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const ref = doc(db, "users", user.uid, "progress", "lessons");
+      const snap = await getDoc(ref);
+
+      let progress = { 
+        lesson1: true, 
+        lesson2: false, 
+        lesson3: false, 
+        lesson4: false, 
+        lesson5: false, 
+        lesson6: false,
+        lesson7: false, 
+        lesson8: false, 
+        lesson9: false, 
+        lesson10: false, 
+        lesson11: false, 
+        lesson12: false, 
+        lesson13: false, 
+        lesson14: false, 
+        lesson15: false, 
+        xp: 0 };
+      if (snap.exists()) {
+        progress = snap.data();
+      } else {
+        await setDoc(ref, progress);
+      }
+
+      // XP thresholds for each lesson
+      const unlockThresholds = {
+        lesson1: 0,
+        lesson2: 50,
+        lesson3: 100,
+        lesson4: 150,
+        lesson5: 200,
+        lesson6: 250,
+        lesson7: 300,
+        lesson8: 350,
+        lesson9: 400,
+        lesson10: 450,
+        lesson11: 500,
+        lesson12: 550,
+        lesson13: 600,
+        lesson14: 650,
+        lesson15: 700
+      };
+      Object.keys(unlockThresholds).forEach(key => {
+        const btn = document.querySelector(`[data-lesson="${key}"]`);
+        if (btn && (progress.xp || 0) >= unlockThresholds[key]) {
+          btn.disabled = false;
+          btn.textContent = "Start Lesson";
+          btn.closest(".lesson-card").classList.remove("locked");
+        }
+      });
+
+      // Update XP bar
+      const requiredXP = 700; // required for course completion
+      const xp = progress.xp || 0;
+      const percent = Math.min((xp / requiredXP) * 100, 100);
+
+      document.getElementById("xp-fill").style.width = `${percent}%`;
+      document.getElementById("xp-text").textContent = `XP: ${xp} / ${requiredXP}`;
+
+      // Show Final Test button if course is complete
+      if (xp >= requiredXP) {
+        const finalBtn = document.getElementById("finalTestBtn");
+        finalBtn.style.display = "block";
+        finalBtn.onclick = () => {
+          window.location.href = "finaltest.html"; // <-- link to your final test page
+        };
+      }
+    }
+  
+    // Popup utility
+    function showPopup(message, callback) {
+      const popup = document.getElementById("popupModal");
+      const msgBox = document.getElementById("popupMessage");
+      const closeBtn = document.getElementById("closePopup");
+      
+      msgBox.textContent = message;
+      popup.style.display = "flex";
+
+      closeBtn.onclick = () => {
+        popup.style.display = "none";
+        if (callback) callback();
+      };
+    }
+    
+    // Reset Progress Button with custom popup
+    const resetBtn = document.getElementById("resetProgressBtn");
+    const confirmPopup = document.getElementById("confirmPopup");
+    const confirmYes = document.getElementById("confirmYes");
+    const confirmNo = document.getElementById("confirmNo");
+
+    resetBtn.addEventListener("click", () => {
+      confirmPopup.style.display = "flex"; // show confirmation popup
+    });
+
+    // Handle Yes/No
+    confirmYes.addEventListener("click", async () => {
+      const user = auth.currentUser;
+      if (!user) return;
+      
+    const ref = doc(db, "users", user.uid, "progress", "lessons");
+      // Reset back to defaults
+      let resetData = { 
+        lesson1: true, 
+        lesson2: false, 
+        lesson3: false, 
+        lesson4: false, 
+        lesson5: false, 
+        lesson6: false, 
+        lesson7: false, 
+        lesson8: false, 
+        lesson9: false, 
+        lesson10: false, 
+        lesson11: false, 
+        lesson12: false, 
+        lesson13: false, 
+        lesson14: false, 
+        lesson15: false, 
+        xp: 0 
+      };
+      
+      await setDoc(ref, resetData);
+      showPopup("Progress has been reset.", () => window.location.reload());
+    });
+
+    confirmNo.addEventListener("click", () => {
+      confirmPopup.style.display = "none"; // close popup without resetting
+    });
+  
+    // Hamburger toggle
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+    const closeBtn = document.getElementById("closeBtn");
+
+    menuToggle.addEventListener("click", () => {
+      navLinks.classList.add("active");
+    });
+
+    closeBtn.addEventListener("click", () => {
+      navLinks.classList.remove("active");
+    });
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        loadProgress();
+      } else {
+        window.location.href = "index.html";
+      }
+    });
+  
+    // Show popup if redirected from lesson
+    const lessonMsg = localStorage.getItem("lessonPassed");
+    if (lessonMsg) {
+      showPopup(lessonMsg);
+      localStorage.removeItem("lessonPassed");      
+    }
+
+  </script>
+</body>
+</html>
