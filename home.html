@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberShield | Home</title>
+  <link rel="shortcut icon" type="x-icon" href="logo.jpg" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #0d1117;
+      color: #c9d1d9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Mobile Menu */
+    .nav-links {
+      display: flex;
+    }
+
+    .close-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #00ff99;
+      cursor: pointer;
+      align-self: flex-end;
+    }
+  
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #010409;
+      border-bottom: 1px solid #30363d;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #1f6feb;
+      text-shadow: 0 0 10px #0a58cb;
+    }
+
+    /* Hamburger menu button */
+    .menu-toggle {
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #c9d1d9;
+      background: none;
+      border: none;
+      display: none;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav a, nav button {
+      text-decoration: none;
+      color: #c9d1d9;
+      font-weight: 500;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    nav a:hover, nav button:hover {
+      color: #1f6feb;
+      text-shadow: 0 0 10px #0a58cb;
+    }
+
+    #logoutBtn {
+      font-family: 'Orbitron', serif;
+      background: #1f6feb;
+      border: 1px solid #1f6feb;
+      max-width: 50%;
+      padding: 0.5rem 1rem;
+      border-radius: 0.6rem;
+      color: #0a0a0a;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    #logoutBtn:hover {
+      border: solid #0a58ca;
+      color: #fff;
+      box-shadow: 0 0 8px #0a58cb;
+    }
+
+    .close-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #c9d1d9;
+      cursor: pointer;
+      align-self: flex-end;
+    }
+  
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        background: #161b22;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 1.2rem;
+        gap: 1rem;
+        transition: right 0.3s ease;
+        border-left: 1px solid #30363d;
+        border-bottom: 1px solid #30363d;
+        width: 220px;
+        height: auto;
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .close-btn {
+        display: block;
+        margin-left: auto;
+        margin-bottom: 0.5rem;
+      }
+
+      .nav-links a, .nav-links button {
+        width: 100%;
+        text-align: left;
+      }
+    }
+
+    /* Main content */
+    .content { 
+      flex: 1; 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2rem; 
+    }
+    .content h1 { 
+      font-family: 'Orbitron', sans-serif;
+      color: #1f6feb;
+      font-size: 2rem; 
+      margin-bottom: 1rem;
+      text-shadow: 0 0 6px #0a58cb; 
+    }
+    .content p { 
+      font-size: 1.2rem;
+      color: #8b949e;
+      max-width: 700px;
+      margin-bottom: 2rem; 
+      line-height: 1.6;
+    }
+
+    /* Cards */
+    .card-container { 
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 1.5rem; 
+      justify-content: center; 
+      margin-top: 2rem;
+    }
+    .card { 
+      background: #161b22; 
+      border: 1px solid #30363d;
+      border-radius: 12px; 
+      padding: 1.4rem; 
+      font-size: 1rem; 
+      transition: transform 0.2s ease, border 0.2s ease;
+      width: 260px;
+      min-height: 180px; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center;
+      align-items: center; 
+      text-align: center; 
+    }
+    .card:hover { 
+      border: 1px solid #1f6feb; 
+      box-shadow: 0 0 10px #0a58cb; 
+      transform: translateY(-5px);
+    }
+    .card h2 { 
+      color: #1f6feb;
+      margin-bottom: 0.8rem; 
+    }
+    .card p, .card div {
+      color: #8b949e;
+      margin: 0.5rem 0; 
+    }
+    .card-icon { 
+      max-width: 34%;
+      margin-bottom: 0.6rem; 
+    }
+
+    footer { 
+      text-align: center; 
+      padding: 1rem; 
+      border-top: 1px solid #30363d;
+      font-size: 0.9rem; 
+      opacity: 0.8; 
+    }
+
+    /* Popup Modal */
+    .popup-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+  
+    .popup-content {
+      background: #161b22;
+      border: 1px solid #30363d;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 350px;
+      color: #c9d1d9;
+      box-shadow: 0 0 8px #0a58cb;
+    }
+  
+    .popup-content button {
+      margin-top: 1rem;
+      padding: 0.5rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  
+    #logoutYes {
+      font-family: 'Orbitron', sans-serif;
+      background: #1f6feb;
+      color: #fff;
+    }
+
+    #logoutNo {
+      font-family: 'Orbitron', sans-serif;
+      background: #da3633;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">CyberShield</div>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+    <nav class="nav-links" id="navLinks">
+      <button class="close-btn" id="closeBtn">✖</button>
+      <a href="home.html">Home</a>
+      <a href="lessons.html">Lessons</a>
+      <a href="contact.html">Contact Us</a>
+      <button id="logoutBtn">Logout</button>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="content">
+    <h1>Welcome to CyberShield</h1>
+    <p>
+      Learn cybersecurity in a fun, interactive, and gamified way. Protect yourself online 
+      while unlocking lessons step by step. Begin your journey toward becoming a digital defender.
+    </p>
+
+    <div class="card-container">
+      <!-- Lessons Card -->
+      <div class="card">
+        <img src="lesson.png" alt="Lessons Icon" class="card-icon">
+        <h2>Lessons</h2>
+        <p id="lessonOverview">Loading...</p>
+      </div>
+
+      <!-- Results Card -->
+      <div class="card">
+        <img src="result.png" alt="Results Icon" class="card-icon">
+        <h2>Results</h2>
+        <div id="homeResults">Loading...</div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    © 2026 CyberShield | Research Project - Antipolo City Senior High School
+  </footer>
+
+  <!-- Logout Confirmation Popup -->
+  <div id="logoutPopup" class="popup-modal">
+    <div class="popup-content">
+      <p id="logoutMessage">Are you sure you want to logout?</p>
+      <div style="margin-top:1rem; display:flex; justify-content:center; gap:1rem;">
+        <button id="logoutYes">Yes</button>
+        <button id="logoutNo">No</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDcy8AV_IMrphBOihSwT461C2_CmhHAZi4",
+      authDomain: "cshield-41518.firebaseapp.com",
+      projectId: "cshield-41518",
+      storageBucket: "cshield-41518.firebasestorage.app",
+      messagingSenderId: "1055312271929",
+      appId: "1:1055312271929:web:c3415a674782ade5550be8"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Logout Popup
+    const logoutBtn = document.getElementById("logoutBtn");
+    const logoutPopup = document.getElementById("logoutPopup");
+    const logoutYes = document.getElementById("logoutYes");
+    const logoutNo = document.getElementById("logoutNo");
+
+    logoutBtn.addEventListener("click", () => {
+      logoutPopup.style.display = "flex"; // show popup
+    });
+
+    logoutYes.addEventListener("click", async () => {
+      await signOut(auth);
+      localStorage.clear();
+      window.location.href = "index.html";
+    });
+
+    logoutNo.addEventListener("click", () => {
+      logoutPopup.style.display = "none"; // close popup
+    });
+
+    // Hamburger toggle
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+    const closeBtn = document.getElementById("closeBtn");
+    menuToggle.addEventListener("click", () => { navLinks.classList.add("active"); });
+    closeBtn.addEventListener("click", () => { navLinks.classList.remove("active"); });
+
+    // Load results and lesson overview
+    async function loadHomeData(user){
+      const ref = doc(db,"users",user.uid,"progress","lessons");
+      const snap = await getDoc(ref);
+
+      if(snap.exists()){
+        const data = snap.data();
+        let xp = data.xp || 0;
+        let lessonsDone = Object.keys(data).filter(k=>k.startsWith("lesson") && data[k]).length;
+        let finalScore = data.finalScore || 0;
+        let passed = data.finalTest ? finalScore >= 20 : false;
+
+        document.getElementById("lessonOverview").textContent = `Completed ${lessonsDone}/15 lessons`;
+        document.getElementById("homeResults").innerHTML = `
+          XP: ${xp}/700 <br>
+          Final Score: ${finalScore}/30 <br>
+          ${passed ? "Passed" : "Not Passed"}
+        `;
+      } else {
+        document.getElementById("lessonOverview").textContent = "No lessons completed yet.";
+        document.getElementById("homeResults").textContent = "No results yet.";
+      }
+    }
+
+    onAuthStateChanged(auth,(user)=>{ 
+      if(user){ loadHomeData(user); } 
+      else { window.location.href="index.html"; }
+    });
+  </script>
+</body>
+</html>
