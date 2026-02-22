@@ -6,8 +6,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
    <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="shortcut icon" href="logo.jpg"/>
-  <link rel="shortcut icon" type="x-icon" href="logo.jpg" />
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
   <title>CS | Login/Register</title>
   <style>
     :root {
@@ -42,9 +41,11 @@
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
-      background: rgba(11, 15, 20, 0.85);
+      background: linear-gradient( to top,
+      rgba(11, 15, 20, 0.95),
+      rgb(11, 15, 10)
+      );
       border-bottom: 1px solid rgba(31, 41, 55, 0.8);
-      backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
       z-index: 1000;
@@ -60,23 +61,25 @@
 
     /* Navbar button */
     #auth-btn {
-      font-family: 'Orbitron', serif;
-      background: #1f6feb;
+      font-family: 'Audiowide', serif;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
       border: 1px solid #1f6feb;
       padding: 0.4rem 0.9rem;
+      border-radius: 999px;
       border-radius: 0.5rem;
-      color: #0a0a0a;
+      color: #f8fafc;
       font-weight: 600;
       font-size: 0.6rem;
       cursor: pointer;
+      text-align: center;
       transition: 0.2s ease;
     }
 
     #auth-btn:hover {
-      background: #0a58ca;
+      background: linear-gradient(135deg, #1d4ed8, #1e40af);
+      border: 1px solid rgba(59, 130, 246, 0.8);
       color: #fff;
-      box-shadow: 0 0 8px #0a58cb;
-      border: solid;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
     }
 
     /* About / Mission Section */
