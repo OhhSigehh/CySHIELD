@@ -4,17 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CyberShield | Lessons</title>
-  <link rel="shortcut icon" type="x-icon" href="logo.jpg" />
+  <link rel="shortcut icon" type="x-icon" href="logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #0b0f14; 
+      --bg-soft: #111827;
+      --card: #0f172a;
+      --primary: #2563eb;
+      --accent: #1d4ed8;
+      --text: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border: #1f2937;
+      --danger: #ef4444;
+      --shadow: 0 24px 50px rgba(15, 23, 42, 0.35);
+    }
+  
     * {
       box-sizing: border-box;
     }
+  
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: #0d1117;
-      color: #c9d1d9;
+      background: radial-gradient(circle at top, #111827 0%, #0b0f14 55%, #070a0f 100%);
+      color: var(--text);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -24,16 +39,6 @@
     .nav-links {
       display: flex;
     }
-
-    .close-btn {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: #00ff99;
-      cursor: pointer;
-      align-self: flex-end;
-    }
   
     /* Navbar */
     .navbar {
@@ -41,8 +46,11 @@
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
-      background: #010409;
-      border-bottom: 1px solid #30363d;
+      background: linear-gradient( to top,
+      rgba(11, 15, 20, 0.95),
+      rgb(11, 15, 10)
+      );
+      border-bottom: 1px solid rgba(31, 41, 55, 0.8);
       position: sticky;
       top: 0;
       z-index: 1000;
@@ -52,15 +60,15 @@
       font-family: 'Orbitron', sans-serif;
       font-size: 1.25rem;
       font-weight: bold;
-      color: #1f6feb;
-      text-shadow: 0 0 10px #0a58cb;
+      color: var(--text);
+      letter-spacing: 0.08em;
     }
 
     /* Hamburger menu button */
     .menu-toggle {
       font-size: 1.8rem;
       cursor: pointer;
-      color: #c9d1d9;
+      color: var(--text);
       background: none;
       border: none;
       display: none;
@@ -74,7 +82,7 @@
 
     nav a, nav button {
       text-decoration: none;
-      color: #c9d1d9;
+      color: var(--text);
       font-weight: 500;
       background: none;
       border: none;
@@ -83,27 +91,28 @@
     }
 
     nav a:hover, nav button:hover {
-      color: #1f6feb;
-      text-shadow: 0 0 10px #0a58cb;
+      color: var(--primary);
     }
 
     #logoutBtn {
-      font-family: 'Orbitron', serif;
-      background: #1f6feb;
-      border: 1px solid #1f6feb;
+      font-family: 'Audiwide', serif;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border: 1px solid rgba(37, 99, 235, 0.6);
       max-width: 50%;
       padding: 0.5rem 1rem;
-      border-radius: 0.6rem;
-      color: #0a0a0a;
+      border-radius: 999px;
+      color: #f8fafc;
       font-weight: 600;
       cursor: pointer;
+      text-align: center;
       transition: 0.2s ease;
     }
 
     #logoutBtn:hover {
-      border: solid #0a58ca;
+      background: linear-gradient(135deg, #1d4ed8, #1e40af);
+      border: 1px solid rgba(59, 130, 246, 0.8);
       color: #fff;
-      box-shadow: 0 0 8px #0a58cb;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
     }
 
     .close-btn {
@@ -111,7 +120,7 @@
       background: none;
       border: none;
       font-size: 1.5rem;
-      color: #c9d1d9;
+      color: var(--text);
       cursor: pointer;
       align-self: flex-end;
     }
@@ -125,16 +134,17 @@
         position: fixed;
         top: 0;
         right: -100%;
-        background: #161b22;
+        background: rgb(15, 30, 42);
         flex-direction: column;
         align-items: flex-start;
         padding: 1rem 1.2rem;
         gap: 1rem;
-        transition: right 0.3s ease;
-        border-left: 1px solid #30363d;
-        border-bottom: 1px solid #30363d;
-        width: 220px;
-        height: auto;
+        border-left: 1px solid rgba(31, 41, 55, 0.8);
+        border-bottom: 1px solid rgba(31, 41, 55, 0.8);
+        width: 65%;
+        height: 100vh;
+        box-shadow: var(--shadow);
+        transition: right 0.6s ease;
       }
 
       .nav-links.active {
@@ -162,12 +172,14 @@
 
     .lessons-container h1{
       font-family: 'Orbitron', sans-serif;
+      font-size: 2rem; 
       margin-bottom: 1rem;
-      text-shadow: 0 0 6px #0a58cb;
+      text-shadow: none; 
     }
   
     .lessons-container h2{
-      color: #c9d1d9;
+      color: var(--text);
+      margin-bottom: 0.8rem; 
     }
   
     /* XP bar */
@@ -176,15 +188,15 @@
       max-width: 600px;
       margin: 1rem auto 2rem auto;
       height: 20px;
-      background: #161b22;
-      border: 1px solid #010409;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
       border-radius: 10px;
       overflow: hidden;
     }
     #xp-fill {
       width: 0%;
       height: 100%;
-      background: #0a58ca;
+      background: var(--primary);
       transition: width 0.5s ease;
     }
 
@@ -197,8 +209,9 @@
     }
 
     .lesson-card {
-      background: #111;
-      border: 1px solid #0a58ca;
+      background: var(--card);
+      border: 1px solid var(--primary);
+      box-shadow: var(--shadow);
       border-radius: 12px;
       padding: 1.5rem;
       width: 280px;
@@ -207,17 +220,17 @@
     }
   
     .lesson-card.locked {
-      border: 1px solid #30363d;
+      border: 1px solid var(--border);
       opacity: 0.4;
-      border-color: #444;
     }
 
     .lesson-btn {
       font-family: 'Orbitron', serif;
-      background: #1f6feb;
-      border: 1px solid #1f6feb;
+      background: var(--primary);
+      border: 1px solid var(--primary);
+      color: #fff;
       padding: 0.7rem 1.2rem;
-      border-radius: 6px;
+      border-radius: 999px;
       cursor: pointer;
       font-weight: bold;
       margin-top: 1rem;
@@ -227,7 +240,7 @@
     .lesson-btn:hover:enabled {
       border: solid #0a58ca;
       color: #fff;
-      box-shadow: 0 0 8px #0a58cb;
+      box-shadow: 0 0 8px var(--accent);
       transform: translateY(-3px);
     }
 
@@ -239,16 +252,23 @@
 
     /*Final Test*/
     .finaltest{
+      font-family: 'Orbitron', sans-serif;
       display:none; 
       margin: 1rem auto; 
-      padding: 0.8rem 1.5rem; 
-      background:#0d1117; 
+      padding: 0.7rem 1.2rem;  
+      color: #fff;
+      background: var(--primary); 
       border:none;
-      border-radius:6px;
-      font-weight:bold; 
-      cursor:pointer;
+      border-radius: 999px;
+      font-weight: 600; 
+      cursor: pointer;
     }
 
+    .finaltest:hover{
+      border: #da3630;
+      box-shadow: 0 0 8px #da3630;
+    }
+   
     /* Popup Modal */
     .popup-modal {
       display: none;
@@ -262,14 +282,14 @@
     }
   
     .popup-content {
-      background: #161b22;
-      border: 1px solid #30363d;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(31, 41, 55, 0.8);
       padding: 1.5rem;
-      border-radius: 12px;
+      border-radius: 16px;
       text-align: center;
       max-width: 350px;
-      color: #c9d1d9;
-      box-shadow: 0 0 8px #0a58cb;
+      color: var(--text);
+      box-shadow: var(--shadow);
     }
   
     .popup-content button {
@@ -280,30 +300,30 @@
       font-weight: bold;
       cursor: pointer;
     }
+  
+    #confirmYes,
+    #logoutYes {
+      font-family: 'Orbitron', sans-serif;
+      background: var(--danger);
+      color: #fff;
+    }
 
     #closePopup,
     #confirmNo,
     #logoutNo {
       font-family: 'Orbitron', sans-serif;
-      background: #1f6feb;
+      background: var(--primary);
       color: #fff;
     }
 
-    #confirmYes,
-    #logoutYes {
-      font-family: 'Orbitron', sans-serif;
-      background: #da3633;
-      color: #fff;
-    }
-   
     .reset {
       font-family: 'Orbitron', sans-serif;
       display: block; 
       margin: 1rem auto; 
       padding: 0.7rem 1.2rem; 
-      background: #da3633; 
+      background: var(--danger); 
       border: none;
-      border-radius: 6px; 
+      border-radius: 999px; 
       font-weight: 600; 
       cursor: pointer;
     }
@@ -312,16 +332,14 @@
       border: #da3630;
       color: #fff;
       box-shadow: 0 0 8px #da3630;
-      transform: scale(1.05);
     }
-  
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 1rem;
-      border-top: 1px solid #30363d;
-      font-size: 0.9rem;
-      opacity: 0.8;
+
+    footer { 
+      text-align: center; 
+      padding: 1rem; 
+      border-top: 1px solid rgba(31, 41, 55, 0.8);
+      font-size: 0.9rem; 
+      opacity: 0.8; 
     }
   </style>
 </head>
@@ -416,7 +434,7 @@
       
       <!-- Lesson 4 -->
       <div class="lesson-card locked">
-        <h2>Lesson 9: Data Privacy and InformationProtection</h2>
+        <h2>Lesson 9: Data Privacy and Information Protection</h2>
         <button class="lesson-btn" data-lesson="lesson9" onclick="window.location.href='lesson9.html'" disabled>Locked</button>
       </div>
       
